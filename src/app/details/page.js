@@ -1,15 +1,8 @@
-'use client'
 // Import React and necessary hooks
 import Footer from '@/Components/Footer';
+import GameDetailsComponent from '@/Components/GameDetailsComponent';
 import Header from '@/Components/Header';
 import MainContent from '@/Components/MainContent';
-import WelcomeBoard from '@/Components/WelcomeBoard';
-import Create1 from '@/modals/Create1';
-import Success from '@/modals/Success';
-import dynamic from 'next/dynamic';
-const Create = dynamic(() => import('@/modals/Create'), {
-    ssr: false, // Disable server-side rendering for this component
-});
 import React from 'react';
 // import '../styles/globals.css';
 // import PreLoader from '@/Components/PreLoader';
@@ -26,7 +19,7 @@ function App() {
 
             {/* Main content area */}
             <MainContent>
-                <WelcomeBoard />
+                <GameDetailsComponent />
             </MainContent>
 
             {/* Footer */}
@@ -38,10 +31,6 @@ function App() {
             {/* Define your modals here */}
 
             {/* Scripts can be included via useEffect hook or external script files */}
-
-            {/* <Create modal={1}/> */}
-            {/* <Create1 modal={1}/> */}
-            {/* <Success modal={1}/> */}
         </div>
     );
 }

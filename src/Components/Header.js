@@ -1,9 +1,10 @@
-
-import React from 'react';
+"use client"
+import React, { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
 import dynamic from 'next/dynamic';
 import profileheader from '@/assets/images/profile-header.jpg'
+import useScreenWidth from './useScreenWidth';
 // Dynamically import the component that includes the form
 const HeaderSearch = dynamic(() => import('./HeaderSearch'), {
     ssr: false, // Disable server-side rendering for this component
@@ -13,9 +14,9 @@ const HeaderSearch = dynamic(() => import('./HeaderSearch'), {
 
 const Header = () => {
     // Define any necessary state or functions here
+    const screenWidth = useScreenWidth();
 
-
-
+    const [display, setDisplay] = useState(false)
     return (
         <header className="header-area header-sticky">
             <div className="container">
@@ -34,45 +35,86 @@ const Header = () => {
                             </div>
 
                             {/* Navigation Menu */}
-                            <ul className="nav">
-                                <li><Link href="/">Home</Link></li>
-                                <li><Link href="/browse" className="active">Browse</Link></li>
-                                <li><Link href="/details">Details</Link></li>
-                                <li><Link href="/streams">Streams</Link></li>
-                                <li>
-                                    <a data-dropdown="#noanchor" href="javascript:void(0)">
-                                        <div className="dropdown-menu dropdown-anchor-top-left" id="noanchor">
-                                            <div className="main-profile" style={{ padding: '17px' }}>
-                                                <ul style={{ paddingBottom: "8px" }}>
-                                                    <li style={{ padding: '0px' }} className="shadow-none">
-                                                        <div id="my-signin2"></div>
+                            {screenWidth > 500 ?
+                                <ul className="nav" style={{ display: 'unset' }}>
+                                    <li><Link href="/">Home</Link></li>
+                                    <li><Link href="/browse" className="active">Browse</Link></li>
+                                    <li><Link href="/details">Details</Link></li>
+                                    <li><Link href="/streams">Streams</Link></li>
+                                    <li>
+                                        <a data-dropdown="#noanchor" href="javascript:void(0)">
+                                            <div className="dropdown-menu dropdown-anchor-top-left" id="noanchor">
+                                                <div className="main-profile" style={{ padding: '17px' }}>
+                                                    <ul style={{ paddingBottom: "8px" }}>
+                                                        <li style={{ padding: '0px' }} className="shadow-none">
+                                                            <div id="my-signin2"></div>
 
-                                                    </li>
-                                                    <li>
+                                                        </li>
+                                                        <li>
 
 
-                                                        <div id="spinner" style={{
-                                                            background: "#4267b2",
-                                                            borderRadius: "5px",
-                                                            color: "white",
-                                                            height: "40px",
-                                                            textAlign: "center",
-                                                            width: "250px",
-                                                        }}>
-                                                            Loading
-                                                            <div className="fb-login-button" data-max-rows="1" data-size="large"
-                                                                data-button-type="continue_with" data-use-continue-as="true"></div>
-                                                        </div>
-                                                    </li>
-                                                </ul>
+                                                            <div id="spinner" style={{
+                                                                background: "#4267b2",
+                                                                borderRadius: "5px",
+                                                                color: "white",
+                                                                height: "40px",
+                                                                textAlign: "center",
+                                                                width: "250px",
+                                                            }}>
+                                                                Loading
+                                                                <div className="fb-login-button" data-max-rows="1" data-size="large"
+                                                                    data-button-type="continue_with" data-use-continue-as="true"></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
                                             </div>
-                                        </div>
 
-                                        Profile <img src={profileheader?.src} alt="" />
-                                    </a>
-                                </li>                            </ul>
+                                            Profile <img src={profileheader?.src} alt="" />
+                                        </a>
+                                    </li>                            </ul>
+                                :
+                                <ul className="nav" style={{ display: display ? 'unset' : 'none' }}>
+                                    <li><Link href="/">Home</Link></li>
+                                    <li><Link href="/browse" className="active">Browse</Link></li>
+                                    <li><Link href="/details">Details</Link></li>
+                                    <li><Link href="/streams">Streams</Link></li>
+                                    <li>
+                                        <a data-dropdown="#noanchor" href="javascript:void(0)">
+                                            <div className="dropdown-menu dropdown-anchor-top-left" id="noanchor">
+                                                <div className="main-profile" style={{ padding: '17px' }}>
+                                                    <ul style={{ paddingBottom: "8px" }}>
+                                                        <li style={{ padding: '0px' }} className="shadow-none">
+                                                            <div id="my-signin2"></div>
+
+                                                        </li>
+                                                        <li>
+
+
+                                                            <div id="spinner" style={{
+                                                                background: "#4267b2",
+                                                                borderRadius: "5px",
+                                                                color: "white",
+                                                                height: "40px",
+                                                                textAlign: "center",
+                                                                width: "250px",
+                                                            }}>
+                                                                Loading
+                                                                <div className="fb-login-button" data-max-rows="1" data-size="large"
+                                                                    data-button-type="continue_with" data-use-continue-as="true"></div>
+                                                            </div>
+                                                        </li>
+                                                    </ul>
+                                                </div>
+                                            </div>
+
+                                            Profile <img src={profileheader?.src} alt="" />
+                                        </a>
+                                    </li>                            </ul>
+                            }
+
                             <Link href="#" className='menu-trigger'>
-                                <span>Menu</span>
+                                <span onClick={() => setDisplay(!display)}>Menu</span>
                             </Link>
                         </nav>
                     </div>
