@@ -2,8 +2,8 @@
   "compilerOptions": {
     "paths": {
       "@/*": ["./src/*"],
-      "@/assets*": ["./src/assets*"],
-      "@/vender*": ["./src/vender*"],
+      "@/assets*": ["./public/assets*"],
+      "@/vender*": ["./public/vender*"],
     }
   }
 }
