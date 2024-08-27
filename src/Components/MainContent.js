@@ -69,7 +69,7 @@ const MainContent = ({children}) => {
                                         </div>
                                     </div>
                                 ))}
-                                <div class="col-lg-12">
+                                <div className="col-lg-12">
                                     <div className="main-button">
                                         <Link href="streams">Load More Streams</Link>
                                     </div>

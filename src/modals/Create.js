@@ -22,7 +22,7 @@ const Create = ({modal}) => {
                 </div>
 
                 <div className="circle_io close_btn">
-                    <i class="fa fa-times"></i>
+                    <i className="fa fa-times"></i>
                 </div>
 
                 <div className="most-popular" style={{ display: 'block' }}>
@@ -42,7 +42,7 @@ const Create = ({modal}) => {
                                         name="links"
                                     // onChange={handleSearch}
                                     />
-                                    <i class="fa fa-link"></i>
+                                    <i className="fa fa-link"></i>
                                 </form>
                                 <small className="text-danger position-relative top-20 show_error"></small>
                             </div>
