@@ -1,11 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-import featured01 from "assets/images/featured-01.jpg";
-import featured02 from "assets/images/featured-02.jpg";
-import featured03 from "assets/images/featured-03.jpg";
-import avatar01 from "assets/images/avatar-01.jpg";
-import avatar02 from "assets/images/avatar-02.jpg";
-import avatar03 from "assets/images/avatar-03.jpg";
+import featured01 from "@/assets/images/featured-01.jpg";
+import featured02 from "@/assets/images/featured-02.jpg";
+import featured03 from "@/assets/images/featured-03.jpg";
+import avatar01 from "@/assets/images/avatar-01.jpg";
+import avatar02 from "@/assets/images/avatar-02.jpg";
+import avatar03 from "@/assets/images/avatar-03.jpg";
 import Link from "next/link";
 
 const LiveStreams = () => {
