@@ -25,9 +25,15 @@ const Header = () => {
           <div className="col-12">
             <nav className="main-nav">
               {/* Logo */}
-              <Link href="/" className="logo">
+              <Link href="/">
                 {/* Next.js Image component for optimized images. Adjust the import path as needed. */}
-                <Image src={Logo} alt="Logo" width={100} height={50} />
+                <Image
+                  id="logo"
+                  src={Logo}
+                  alt="Logo"
+                  width={100}
+                  height={100}
+                />
               </Link>
 
               {/* Search */}

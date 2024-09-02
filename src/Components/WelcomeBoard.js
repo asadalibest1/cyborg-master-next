@@ -7,7 +7,7 @@ const WelcomeBoard = () => {
       <div className="row">
         <div className="col-lg-7">
           <div className="header-text">
-            <h6>Welcome To GamesLords</h6>
+            <h6>Welcome To Squad Groups</h6>
             <h4>
               <em>Browse</em> Your Popular Games Groups Here
             </h4>
