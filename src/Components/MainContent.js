@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 // Importing images
 import streamImage05 from "@/assets/images/stream-05.jpg";
 import streamImage06 from "@/assets/images/stream-06.jpg";
@@ -13,41 +14,14 @@ import gameImage02 from "@/assets/images/game-02.jpg";
 import gameImage03 from "@/assets/images/game-03.jpg";
 import Link from "next/link";
 // Live stream and gaming library data
-const liveStreams = [
-  {
-    streamImg: streamImage05,
-    avatarImg: avatarImage01,
-    user: "g/Kengan Omeg",
-    title: "Just Talking With Fans",
-    game: "CS-GO",
-    viewers: "1.2K",
-  },
-  {
-    streamImg: streamImage06,
-    avatarImg: avatarImage02,
-    user: "LahutaMalc",
-    title: "CS-GO 36 Hours Live Stream",
-    game: "CS-GO",
-    viewers: "1.2K",
-  },
-  {
-    streamImg: streamImage07,
-    avatarImg: avatarImage03,
-    user: "Areluwa",
-    title: "Maybe Nathej Allnight Chillin'",
-    game: "CS-GO",
-    viewers: "1.2K",
-  },
-  {
-    streamImg: streamImage08,
-    avatarImg: avatarImage04,
-    user: "NewGangTeam",
-    title: "Live Streaming Till Morning",
-    game: "CS-GO",
-    viewers: "1.2K",
-  },
-];
-
+const liveStreams = {
+  streamImg: streamImage05,
+  avatarImg: avatarImage01,
+  user: "g/Kengan Omeg",
+  title: "Just Talking With Fans",
+  game: "CS-GO",
+  viewers: "1.2K",
+};
 const games = [
   {
     gameImg: gameImage01,
@@ -76,6 +50,35 @@ const games = [
 ];
 
 const MainContent = ({ children }) => {
+  const [groupList, setGroups] = useState([]);
+  const [page, setPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
+  const limit = 10; // Number of items to load per request
+
+  useEffect(() => {
+    async function getApiCall() {
+      try {
+        const res = await fetch(`/api/get-groups?page=${page}&limit=${limit}`, {
+          method: "GET",
+        });
+        const result = await res.json();
+
+        setGroups((prevGroups) => [...prevGroups, ...result.data]);
+        setHasMore(result.hasMore);
+      } catch (error) {
+        console.error("Error fetching groups:", error);
+      }
+    }
+    getApiCall(page);
+  }, [page]);
+
+  const loadMore = (e) => {
+    e.preventDefault();
+    if (hasMore) {
+      setPage((prevPage) => prevPage + 1);
+    }
+  };
+
   return (
     <div className="container">
       <div className="row">
@@ -88,16 +91,20 @@ const MainContent = ({ children }) => {
               <div className="col-lg-12">
                 <div className="heading-section">
                   <h4>
-                    <em>Most Popular</em> Live Stream
+                    <em>Most Popular</em> Groups
                   </h4>
                 </div>
               </div>
               <div className="row">
-                {liveStreams.map((stream, index) => (
+                {/* stream */}
+                {groupList?.map((group, index) => (
                   <div className="col-lg-3 col-sm-6" key={index}>
                     <div className="item">
                       <div className="thumb">
-                        <img src={stream.streamImg.src} alt="" />
+                        <img
+                          src={group.img || liveStreams.streamImg.src}
+                          alt=""
+                        />
                         <div className="hover-effect">
                           <div className="content">
                             <div className="live">
@@ -106,13 +113,13 @@ const MainContent = ({ children }) => {
                             <ul>
                               <li>
                                 <Link href="#">
-                                  <i className="fa fa-eye"></i> {stream.viewers}
+                                  <i className="fa fa-eye"></i> {group.viewers}
                                 </Link>
                               </li>
                               <li>
                                 <Link href="#">
                                   <i className="fa fa-gamepad"></i>{" "}
-                                  {stream.game}
+                                  {liveStreams.game}
                                 </Link>
                               </li>
                             </ul>
@@ -122,7 +129,7 @@ const MainContent = ({ children }) => {
                       <div className="down-content">
                         <div className="avatar">
                           <img
-                            src={stream.avatarImg.src}
+                            src={streamImage05.src}
                             alt=""
                             style={{
                               maxWidth: "46px",
@@ -133,17 +140,19 @@ const MainContent = ({ children }) => {
                         </div>
                         <span>
                           <Link href="/profile">
-                            <i className="fa fa-check"></i> {stream.user}
+                            <i className="fa fa-check"></i> {liveStreams.user}
                           </Link>
                         </span>
-                        <h4>{stream.title}</h4>
+                        <h4>{group.name}</h4>
                       </div>
                     </div>
                   </div>
                 ))}
                 <div className="col-lg-12">
                   <div className="main-button">
-                    <Link href="streams">Load More Streams</Link>
+                    <Link href="#" aria-disabled={hasMore} onClick={loadMore}>
+                      Load More
+                    </Link>
                   </div>
                 </div>
               </div>
